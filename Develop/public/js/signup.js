@@ -20,4 +20,4 @@ if (usernameEl && passwordEl){
 
 document
   .querySelector('#signup-form')
-  .addEventListener('submit', signupFormHandler);
+  .addEventListener('submit', signupFormHandler)};
