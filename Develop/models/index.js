@@ -1,16 +1,24 @@
-const Location = require('./Location');
-const Traveller = require('./Traveller');
-const Trips = require('./Trips');
+const User = require('./User');
+const Post = require('./Post');
+const Comment = require('./Comment');
 
-Traveller.belongsToMany(Location, {
-    through: Trips,
-    onDelete: 'CASCADE',
+Post.belongsTo(User, {
+  foreignKey: 'userId',
+  onDelete: 'CASCADE'
 });
 
-Location.belongsToMany(Traveller, {
-    through: Trips,
-    onDelete: 'CASCADE'
+Post.hasMany(Comment, {
+  foreignKey: 'postId',
+  onDelete: 'CASCADE'
 });
 
+Comment.belongsTo(User, {
+  foreignKey: 'userId',
+  onDelete: 'CASCADE'
+});
 
-module.exports = { Location, Traveller, Trips };
+module.exports = {
+  User,
+  Comment,
+  Post
+};
