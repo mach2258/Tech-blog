@@ -3,17 +3,35 @@ const { Post, Comment, User } = require('../models/');
 
 // get all posts for homepage
 router.get('/', async (req, res) => {
-  Blog.findOne({
-    include: {
-      model: User,
-      attributes: ['username']
-    }
-  })
-  .then((blogInfo) => {
-    const blogs = blogInfo.map((blog) => blogInfo.get({plain: true}));
-    res.render('home', {blogs, loggedIn: req.session.loggedIn})
-  })
+  try {
+    const dbPostData = await Post.findAll({
+      include: [{
+          model: User,
+          attributes: ['username']
+        }]
+    });
+    const posts = dbPostData.map(post => post.get({ plain: true }));
+    res.render('all-posts', {
+      posts,
+      loggedIn: req.session.loggedIn
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json(err);
+  }
 });
+// router.get('/', async (req, res) => {
+//   Post.findOne({
+//     include: {
+//       model: User,
+//       attributes: ['username']
+//     }
+//   })
+//   .then((blogInfo) => {
+//     const blogs = blogInfo.map((Post) => blogInfo.get({plain: true}));
+//     res.render('home', {blogs, loggedIn: req.session.loggedIn})
+//   })
+// });
 
 // get single post
 router.get('/post/:id', async (req, res) => {
