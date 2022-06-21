@@ -1,5 +1,35 @@
 <div class="post">
-  
+    <div class="card">
+        <div class="card-header flex-row justify-space-between align-center">
+            <h2 class="col-7">
+                {{singlePost.title}}
+            </h2>
+            <div class="col-5 text-end">
+                Posted by {{singlePost.user.username}} on {{format_date singlePost.createdAt}}
+            </div>
+        </div>
+        <div class="card-body">
+            <p>
+                {{singlePost.body}}
+            </p>
+        </div>
+    </div>
+
+    {{#each singlePost.comments as |comment|}}
+    {{> comment-partial}}
+    {{/each}}
+
+    <div class="card">
+        <div class="card-header">
+            Post
+        </div>
+        <div class="card-body">
+            <form id="new-comment-form">
+                <textarea name="comment-body" placeholder="Leave a comment..."></textarea>
+                <button type="submit" class="btn">Submit</button>
+            </form>
+        </div>
+    </div>
 </div>
 
 <script src="/js/comment.js"></script>

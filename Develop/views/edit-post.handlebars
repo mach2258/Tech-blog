@@ -1,5 +1,23 @@
 <div class="post card">
- 
+    <div class="card-header">
+        <h2>
+            Edit Post
+        </h2>
+    </div>
+    <div class="card-body">
+        <form id="edit-post-form">
+            <label for="post-title">
+                Title
+            </label>
+            <input name="post-title" value="{{post.title}}">
+            <label for="post-body">
+                Content
+            </label>
+            <textarea name="post-body">{{post.body}}</textarea>
+            <button type="submit" id="update" class="btn">Update Post</button>
+        </form>
+        <button type="delete" id="delete-btn" class="btn">Delete</button>
+    </div>
 </div>
 
 <script src="/js/edit.js"></script>
